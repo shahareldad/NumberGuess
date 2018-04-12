@@ -4,18 +4,16 @@
     <string name="medium">0 to 1000</string>
     <string name="hard">0 to 10000</string>
     <string name="settings">Settings</string>
-    <string name="playSounds">Play sounds</string>
     <string name="okButton">OK</string>
     <string name="userInputHint">Take a guess</string>
     <string name="guessSubmit">Guess</string>
     <string name="showCurrentGuessLimits">Show current game guess limits</string>
-    <string name="topLimitSettingsText">Guess top limit</string>
     <string name="tooBig">Your number was too big</string>
     <string name="tooSmall">Your number was too small</string>
-    <string name="goodGuess">You got it!\nIt took you [N] guesses</string>
+    <string name="goodGuess">You got it!\nIt took you [N] guess(es)</string>
     <string name="startOverSubmit">Start over</string>
-    <string name="bottomBorderText"><u>Current lower\nlimit</u></string>
-    <string name="topBorderText"><u>Current upper\nlimit</u></string>
+    <string name="bottomBorderText"><u>Lower limit</u></string>
+    <string name="topBorderText"><u>Upper limit</u></string>
     <string name="newGame">New</string>
     <string name="backButton">Back</string>
 </resources>

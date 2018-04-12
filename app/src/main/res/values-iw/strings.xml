@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">נחש את המספר</string>
+    <string name="easy">0-100</string>
+    <string name="medium">0-1000</string>
+    <string name="hard">0-10000</string>
+    <string name="settings">הגדרות</string>
+    <string name="okButton">אישור</string>
+    <string name="userInputHint">נחש מספר</string>
+    <string name="guessSubmit">נחש</string>
+    <string name="showCurrentGuessLimits">הצג גבולות ניחוש עדכניים</string>
+    <string name="tooBig">המספר שהכנסת גדול מדי</string>
+    <string name="tooSmall">המספר שהכנסת קטן מדי</string>
+    <string name="goodGuess">הצלחת!\nזה לקח לך [N] ניחוש/ים</string>
+    <string name="startOverSubmit">התחל משחק חדש</string>
+    <string name="newGame">משחק חדש</string>
+    <string name="backButton">אחורה</string>
+    <string name="bottomBorderText"><u>גבול תחתון</u></string>
+    <string name="topBorderText"><u>גבול עליון</u></string>
+</resources>
