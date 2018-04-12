@@ -24,6 +24,7 @@
             tools:context=".BoardActivity">
 
             <TextView
+                android:id="@+id/bottomBorderViewTitle"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:textSize="20dp"
@@ -55,6 +56,7 @@
             tools:context=".BoardActivity">
 
             <TextView
+                android:id="@+id/topBorderViewTitle"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:textSize="20dp"
@@ -82,6 +84,7 @@
         android:id="@+id/userInput"
         android:hint="@string/userInputHint"
         android:layout_marginTop="10dp"
+        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -109,8 +112,8 @@
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
         android:layout_marginTop="5dp"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-        <!--ads:adUnitId="ca-app-pub-8402023979328526/7086328625">-->
+        ads:adUnitId="ca-app-pub-8402023979328526/7086328625">
+        <!--ads:adUnitId="ca-app-pub-3940256099942544/6300978111">-->
     </com.google.android.gms.ads.AdView>
 
 </LinearLayout>

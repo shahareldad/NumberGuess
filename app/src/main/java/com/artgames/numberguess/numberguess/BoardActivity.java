@@ -1,5 +1,7 @@
 package com.artgames.numberguess.numberguess;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,24 +18,24 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class BoardActivity extends AppCompatActivity implements RewardedVideoAdListener {
 
-    private static final String FILENAME_GAME_DATA = "number_guess_game_data";
     private static int _videoAdCounter = 5;
     private static boolean _gameOver = false;
     private static int _gameRounds = 0;
     private RewardedVideoAd _rewardedVideoAd;
-    private int _timeSeconds;
     private boolean _showGuessLimits;
     private int _randomNumber;
     private int _topLimit;
     private TextView _bottomBorderView;
+    private TextView _bottomBorderViewTitle;
     private TextView _topBorderView;
+    private TextView _topBorderViewTitle;
     private EditText _userInput;
     private TextView _lastGuessResult;
-    private Button _userInputSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +53,16 @@ public class BoardActivity extends AppCompatActivity implements RewardedVideoAdL
         _rewardedVideoAd.setRewardedVideoAdListener(this);
         loadRewardedVideoAd();
 
-        _timeSeconds = getIntent().getIntExtra(MainActivity.timeParamName, 0);
         _showGuessLimits = getIntent().getBooleanExtra(MainActivity.guessLimitsParamName, false);
         _topLimit = getIntent().getIntExtra(MainActivity.topLimitParamName, 100);
 
         _bottomBorderView = findViewById(R.id.bottomBorderView);
+        _bottomBorderViewTitle = findViewById(R.id.bottomBorderViewTitle);
         _topBorderView = findViewById(R.id.topBorderView);
+        _topBorderViewTitle = findViewById(R.id.topBorderViewTitle);
         _userInput = findViewById(R.id.userInput);
         _lastGuessResult = findViewById(R.id.lastGuessResult);
-        _userInputSubmit = findViewById(R.id.userInputSubmit);
+        Button _userInputSubmit = findViewById(R.id.userInputSubmit);
         _userInputSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,10 +72,14 @@ public class BoardActivity extends AppCompatActivity implements RewardedVideoAdL
 
         if (_showGuessLimits){
             _topBorderView.setVisibility(View.VISIBLE);
+            _topBorderViewTitle.setVisibility(View.VISIBLE);
             _bottomBorderView.setVisibility(View.VISIBLE);
+            _bottomBorderViewTitle.setVisibility(View.VISIBLE);
         }else{
             _topBorderView.setVisibility(View.INVISIBLE);
+            _topBorderViewTitle.setVisibility(View.INVISIBLE);
             _bottomBorderView.setVisibility(View.INVISIBLE);
+            _bottomBorderViewTitle.setVisibility(View.INVISIBLE);
         }
 
         initNewGame();
@@ -86,27 +93,58 @@ public class BoardActivity extends AppCompatActivity implements RewardedVideoAdL
 
         _gameRounds++;
         int userGuess = Integer.valueOf(String.valueOf(_userInput.getText()));
+        String userGuessString = String.valueOf(userGuess);
         if (userGuess > _randomNumber){
             showMessageToUser(getString(R.string.tooBig));
+            _topBorderView.setText(userGuessString);
         }else{
             if (userGuess < _randomNumber){
                 showMessageToUser(getString(R.string.tooSmall));
+                _bottomBorderView.setText(userGuessString);
             }else{
                 String goodGuess = getString(R.string.goodGuess).replace("[N]", String.valueOf(_gameRounds));
                 showMessageToUser(goodGuess);
-                gameOver();
+                gameOver(userGuessString, goodGuess);
             }
         }
+        _userInput.setText("");
     }
 
-    private void gameOver() {
-        _userInputSubmit.setText(R.string.startOverSubmit);
-        _gameOver = true;
+    private void gameOver(String userGuessString, String goodGuessMsg) {
         _videoAdCounter--;
-        if (_videoAdCounter == 0){
-            _videoAdCounter = 5;
-            showVideoAd();
-        }
+        showDialogToUser(goodGuessMsg);
+        _topBorderView.setText(userGuessString);
+        _bottomBorderView.setText(userGuessString);
+        _gameOver = true;
+    }
+
+    private void showDialogToUser(String goodGuessMsg) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(goodGuessMsg);
+        final String[] items = new String[]{
+                getString(R.string.newGame),
+                getString(R.string.backButton)
+        };
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String selection = Arrays.asList(items).get(i);
+
+                if (_videoAdCounter == 0){
+                    _videoAdCounter = 5;
+                    showVideoAd();
+                }
+
+                if (selection.equals(getString(R.string.newGame))){
+                    initNewGame();
+                }
+                if (selection.equals(getString(R.string.backButton))){
+                    finish();
+                }
+            }
+        });
+
+        builder.create().show();
     }
 
     private void showMessageToUser(String msgToUser) {
@@ -120,7 +158,6 @@ public class BoardActivity extends AppCompatActivity implements RewardedVideoAdL
         _userInput.setText("");
         _lastGuessResult.setText("");
         _gameRounds = 0;
-        _userInputSubmit.setText(R.string.guessSubmit);
         _gameOver = false;
     }
 
@@ -155,6 +192,7 @@ public class BoardActivity extends AppCompatActivity implements RewardedVideoAdL
 
     private void loadRewardedVideoAd() {
         // demo video ad: ca-app-pub-3940256099942544/5224354917
+        // real video ad: ca-app-pub-8402023979328526/6016117080
         _rewardedVideoAd.loadAd("ca-app-pub-8402023979328526/6016117080",
                 new AdRequest.Builder().build());
     }

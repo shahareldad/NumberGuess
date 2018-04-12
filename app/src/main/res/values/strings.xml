@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Number Guess</string>
-    <string name="noTime">Infinite</string>
-    <string name="seconds15">15 Seconds</string>
-    <string name="seconds30">30 Seconds</string>
-    <string name="seconds60">60 Seconds</string>
+    <string name="easy">0 to 100</string>
+    <string name="medium">0 to 1000</string>
+    <string name="hard">0 to 10000</string>
     <string name="settings">Settings</string>
     <string name="playSounds">Play sounds</string>
     <string name="okButton">OK</string>
@@ -17,4 +16,6 @@
     <string name="startOverSubmit">Start over</string>
     <string name="bottomBorderText"><u>Current lower\nlimit</u></string>
     <string name="topBorderText"><u>Current upper\nlimit</u></string>
+    <string name="newGame">New</string>
+    <string name="backButton">Back</string>
 </resources>

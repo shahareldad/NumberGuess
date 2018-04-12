@@ -26,8 +26,6 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String timeParamName = "timeSeconds";
-    public static String soundsParamName = "sounds";
     public static String guessLimitsParamName = "guessLimits";
     public static String topLimitParamName = "topLimit";
     public static String SETTINGS_FILENAME = "NUMBER_GUESS_SETTINGS";
@@ -50,46 +48,37 @@ public class MainActivity extends AppCompatActivity {
         AdRequest requestBottom = new AdRequest.Builder().build();
         adViewBottom.loadAd(requestBottom);
 
-        Button noTime = findViewById(R.id.noTime);
-        Button seconds15 = findViewById(R.id.seconds15);
-        Button seconds30 = findViewById(R.id.seconds30);
-        Button seconds60 = findViewById(R.id.seconds60);
+        Button easy = findViewById(R.id.easy);
+        Button medium = findViewById(R.id.medium);
+        Button hard = findViewById(R.id.hard);
         Button gameSettings = findViewById(R.id.gameSettings);
 
-        noTime.setOnClickListener(new View.OnClickListener() {
+        easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startNewGameByLevel(0);
+                startNewGameByLevel(100);
             }
         });
 
-        seconds15.setOnClickListener(new View.OnClickListener() {
+        medium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startNewGameByLevel(15);
+                startNewGameByLevel(1000);
             }
         });
 
-        seconds30.setOnClickListener(new View.OnClickListener() {
+        hard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startNewGameByLevel(30);
-            }
-        });
-
-        seconds60.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startNewGameByLevel(60);
+                startNewGameByLevel(10000);
             }
         });
 
         LoadSettingsData();
-        final boolean[] checked = new boolean[3];
+        final boolean[] checked = new boolean[1];
         checked[0] = _settings.getShowGuessLimits();
         final SettingsData settings = new SettingsData();
         settings.setShowGuessLimits(_settings.getShowGuessLimits());
-        settings.setTopLimit(_settings.getTopLimit());
         gameSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         SaveSettingsData(settings);
                         _settings.setShowGuessLimits(settings.getShowGuessLimits());
-                        _settings.setTopLimit(settings.getTopLimit());
                     }
                 });
                 builder.create().show();
@@ -147,9 +135,6 @@ public class MainActivity extends AppCompatActivity {
         String selection = Arrays.asList(items).get(indexSelected);
         if (selection.equals(getString(R.string.showCurrentGuessLimits))){
             settings.setShowGuessLimits(isChecked);
-        }
-        if (selection.equals(getString(R.string.topLimitSettingsText))){
-            settings.setTopLimit(100); // TODO: make this dynamic
         }
     }
 
@@ -189,19 +174,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         _settings = new SettingsData();
-        _settings.setShowGuessLimits(false);
-        _settings.setTopLimit(100);
+        _settings.setShowGuessLimits(true);
         Gson gson = new GsonBuilder().create();
         if (builder != null) {
             _settings = gson.fromJson(builder.toString(), new TypeToken<SettingsData>() {}.getType());
         }
     }
 
-    private void startNewGameByLevel(int timeSeconds) {
+    private void startNewGameByLevel(int topBorder) {
         Intent i = new Intent(MainActivity.this, BoardActivity.class);
-        i.putExtra(timeParamName, timeSeconds);
         i.putExtra(guessLimitsParamName, _settings.getShowGuessLimits());
-        i.putExtra(topLimitParamName, _settings.getTopLimit());
+        i.putExtra(topLimitParamName, topBorder);
         startActivity(i);
     }
 }

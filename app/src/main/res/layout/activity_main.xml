@@ -12,33 +12,27 @@ tools:context=".MainActivity">
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/noTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/noTime"/>
 
         <Button
-            android:id="@+id/seconds15"
+            android:id="@+id/easy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".33"
-            android:text="@string/seconds15"/>
+            android:text="@string/easy"/>
 
         <Button
-            android:id="@+id/seconds30"
+            android:id="@+id/medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".33"
-            android:text="@string/seconds30"/>
+            android:text="@string/medium"/>
 
         <Button
-            android:id="@+id/seconds60"
+            android:id="@+id/hard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".33"
-            android:text="@string/seconds60"/>
+            android:text="@string/hard"/>
     </LinearLayout>
 
     <Button
@@ -55,8 +49,8 @@ tools:context=".MainActivity">
         android:layout_centerHorizontal="true"
         ads:adSize="MEDIUM_RECTANGLE"
         android:layout_marginTop="5dp"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-        <!--ads:adUnitId="ca-app-pub-8402023979328526/9625378973">-->
+        ads:adUnitId="ca-app-pub-8402023979328526/9625378973">
+        <!--ads:adUnitId="ca-app-pub-3940256099942544/6300978111">-->
     </com.google.android.gms.ads.AdView>
 
     <com.google.android.gms.ads.AdView
@@ -67,8 +61,8 @@ tools:context=".MainActivity">
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
         android:layout_marginTop="5dp"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-        <!--ads:adUnitId="ca-app-pub-8402023979328526/5466642112">-->
+        ads:adUnitId="ca-app-pub-8402023979328526/5466642112">
+        <!--ads:adUnitId="ca-app-pub-3940256099942544/6300978111">-->
     </com.google.android.gms.ads.AdView>
 
 </LinearLayout>
