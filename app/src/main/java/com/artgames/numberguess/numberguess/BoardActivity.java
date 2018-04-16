@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -92,7 +91,11 @@ public class BoardActivity extends AppCompatActivity implements RewardedVideoAdL
         }
 
         _gameRounds++;
-        int userGuess = Integer.valueOf(String.valueOf(_userInput.getText()));
+        String userInputString = String.valueOf(_userInput.getText());
+        if (userInputString.equals(""))
+            return;
+
+        int userGuess = Integer.valueOf(userInputString);
         String userGuessString = String.valueOf(userGuess);
         if (userGuess > _randomNumber){
             showMessageToUser(getString(R.string.tooBig));
